@@ -1,0 +1,10 @@
+<div id="loginMain">
+    <div *ngIf="!afAuth?.user | async as user; else LoggedIn">
+      <button mat-raised-button (click)="loginGoogle()">Google</button>
+    </div>
+    <ng-template #LoggedIn>
+      <p>You're logged in <br>
+         <mat-icon style="margin: 20px;">rowing</mat-icon>
+        </p>
+    </ng-template>
+</div>
