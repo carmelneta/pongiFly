@@ -1,13 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { TableComponent } from './table/table.component';
 import { LoginComponent } from './login/login.component';
 import { UserComponent } from './user/user.component';
-
+import { HomeComponent } from './home/home.component';
 const routes: Routes = [
-  { path: 'table', component: TableComponent },
-  { path: '', redirectTo: '/table', pathMatch: 'full' },
+  { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'user', component: UserComponent }
 ];

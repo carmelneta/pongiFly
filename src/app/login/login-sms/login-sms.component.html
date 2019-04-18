@@ -1,0 +1,54 @@
+<div>
+  <div id="recaptcha-container" [hidden]="step != allSteps.googleRecp"></div>
+
+  <div *ngIf="step == allSteps.sendToPhone">
+      <mat-grid-list cols="4">
+        <mat-grid-tile [colspan]="3">
+            <mat-form-field>
+                <span matPrefix>+972 &nbsp;</span>
+                
+                <input matInput placeholder="Phone Number" type="tel" [formControl]="phoneNumberControl" [errorStateMatcher]="matcher">
+                
+                <mat-hint align="start"><strong>0543213422</strong> </mat-hint>
+
+                <mat-error *ngIf="phoneNumberControl.errors && phoneNumberControl.errors.required">Phone number is required.</mat-error> 
+                <mat-error *ngIf="phoneNumberControl.errors && phoneNumberControl.errors.forbiddenName">BOB?</mat-error>
+                <mat-error *ngIf="phoneNumberControl.errors && phoneNumberControl.errors.E164">Bad Phone Format</mat-error>
+                
+              </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile [colspan]="1">
+              <button color="primary" mat-raised-button (click)="loginPhone()">SendSMS </button>
+        </mat-grid-tile>
+      </mat-grid-list>
+  </div>
+
+  <div *ngIf="step == allSteps.enterCode">
+  <!-- <div> -->
+    <mat-grid-list cols="4">
+        <mat-grid-tile [colspan]="3">
+            <mat-form-field appearance="outline">
+                <mat-label>SMS Code</mat-label>
+                  <input matInput type="number" placeholder="Code" [formControl]="smsCodeControl">
+                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                <mat-error *ngIf="smsCodeControl.errors && smsCodeControl.errors.required">Code is required.</mat-error> 
+              </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile [colspan]="1">
+              <button color="primary" mat-raised-button (click)="verifyLoginCode()">Verify</button>
+        </mat-grid-tile>
+
+      </mat-grid-list>
+  </div>
+
+  <div *ngIf="step == allSteps.success">
+    <p>success</p>
+  </div>
+
+  <div>
+      <mat-error *ngIf="generalErrorMsg">{{generalErrorMsg}}</mat-error>
+      
+  </div>
+</div>

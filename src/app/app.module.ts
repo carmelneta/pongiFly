@@ -31,6 +31,7 @@ import { LoginComponent } from './login/login.component';
 import { FirstWordPipe } from './services/first-word.pipe';
 import { LoginSmsComponent } from './login/login-sms/login-sms.component';
 import { UserComponent } from './user/user.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { UserComponent } from './user/user.component';
     LoginComponent,
     FirstWordPipe,
     LoginSmsComponent,
-    UserComponent
+    UserComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
