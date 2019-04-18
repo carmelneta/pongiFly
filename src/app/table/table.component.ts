@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+import { User } from '../services/user.service';
 
 export interface UserRow {
   name: string;
@@ -18,18 +19,29 @@ export interface TableData { scores: Array<UserRow>; }
 })
 export class TableComponent implements OnInit {
 
-  private tableDoc: AngularFirestoreDocument<TableData>;
+  tableDoc: AngularFirestoreDocument<TableData>;
   table: Observable<TableData>;
-  constructor(private afs: AngularFirestore) {
-    this.tableDoc = afs.doc<TableData>('results/approved');
-    this.table = this.tableDoc.valueChanges();
+  dataSource: UserRow[] = [];
 
-    this.table.subscribe(results => {
-      console.log(results.scores);
-      this.dataSource = results.scores;
+  usersCollections: AngularFirestoreCollection<User>;
+  users: Observable<User[]>;
+  usersDataSource: User[] = [];
+
+  constructor(private afs: AngularFirestore) {
+    // this.tableDoc = afs.doc<TableData>('results/approved');
+    // this.table = this.tableDoc.valueChanges();
+
+    // this.table.subscribe(results => {
+    //   console.log(results.scores);
+    //   this.dataSource = results.scores;
+    // });
+
+    this.usersCollections = afs.collection<User>('users');
+    this.users = this.usersCollections.valueChanges();
+    this.users.subscribe((users: User[]) => {
+      this.usersDataSource = users;
     });
   }
-  dataSource: UserRow[] = [];
 
   displayedColumns: string[] = ['name', 'wins', 'lose', 'points'];
   ngOnInit() {

@@ -1,11 +1,14 @@
 <mat-toolbar color="primary">
-    <span>PongiFly</span>
+    <a mat-button routerLink="/">PongiFly</a>
 
     <!-- This fills the remaining space of the current row -->
     <span class="example-fill-remaining-space"></span>
 
-    <div *ngIf="afAuth?.user | async as user; else showLogin">
-        <span>{{user.displayName | firstWord}}</span>
+    <div *ngIf="userName; else showLogin">
+        <a routerLink="/user" mat-button color="accent">
+            <mat-icon>perm_identity</mat-icon>
+            {{userName | firstWord}}
+        </a>
     </div>
     <ng-template #showLogin>
         <a mat-icon-button routerLink="/login">

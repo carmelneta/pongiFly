@@ -3,13 +3,13 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { TableComponent } from './table/table.component';
 import { LoginComponent } from './login/login.component';
-
-import { from } from 'rxjs';
+import { UserComponent } from './user/user.component';
 
 const routes: Routes = [
   { path: 'table', component: TableComponent },
   { path: '', redirectTo: '/table', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent }
+  { path: 'login', component: LoginComponent },
+  { path: 'user', component: UserComponent }
 ];
 
 @NgModule({

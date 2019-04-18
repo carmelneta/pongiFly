@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 //  Material
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -11,6 +12,11 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTableModule} from '@angular/material/table';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatCardModule} from '@angular/material/card';
 
 //  Firebase
 import { AngularFireModule } from '@angular/fire';
@@ -22,18 +28,24 @@ import { environment } from '../environments/environment';
 //  Pong
 import { TableComponent } from './table/table.component';
 import { LoginComponent } from './login/login.component';
-import { FirstWordPipe } from './first-word.pipe';
+import { FirstWordPipe } from './services/first-word.pipe';
+import { LoginSmsComponent } from './login/login-sms/login-sms.component';
+import { UserComponent } from './user/user.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TableComponent,
     LoginComponent,
-    FirstWordPipe
+    FirstWordPipe,
+    LoginSmsComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
@@ -42,7 +54,12 @@ import { FirstWordPipe } from './first-word.pipe';
     MatButtonModule,
     MatToolbarModule,
     MatIconModule,
-    MatTableModule
+    MatTableModule,
+    MatExpansionModule,
+    MatGridListModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

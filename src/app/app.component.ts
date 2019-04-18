@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
+import { UserService, User} from './services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -7,6 +7,11 @@ import { AngularFireAuth } from '@angular/fire/auth';
   styleUrls: ['./app.component.sass']
 })
 export class AppComponent {
-  constructor(public afAuth: AngularFireAuth) {
+  userName: string;
+
+  constructor(private userSerivce: UserService) {
+    userSerivce.getUser().then(user => {
+      this.userName = user.name;
+    });
   }
 }
