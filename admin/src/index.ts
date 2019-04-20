@@ -18,13 +18,22 @@ class PongiAdmin {
 
     public async main() {
         await this.getAllUsers();
-        // console.log(this.players);
         this.buildMathes();
-        console.log(this.mathes);
+        this.saveMathces();
     }
 
+    private async saveMathces() {
+        // Get a new write batch
+        const batch = admin.db.batch();
+        const matchesCollection = admin.db.collection('games');
+        this.mathes.forEach((match) => {
+            const mathcRef = matchesCollection.doc(`${match.players[0].uid}VS${match.players[1].uid}`);
+            batch.set(mathcRef, match);
+        });
+        // Commit the batch
+        await batch.commit();
+    }
     private buildMathes() {
-        let weeksCounter = 0;
         const playerDictionary: {[uid: string]: string[]} = {};
 
         //  Build empty dictionary of players matches
@@ -32,27 +41,28 @@ class PongiAdmin {
 
         //  Loop all players
         this.players.forEach((player) => {
+            let weeksCounter = 0;
+            const playerDic = playerDictionary[player.uid];
             //  Loop all player
             this.players.forEach((otherPlayer) => {
+                const otherPlayerDic = playerDictionary[otherPlayer.uid];
                 if (
-                !(player.uid === otherPlayer.uid)
-                &&
-                !(playerDictionary[player.uid].includes(otherPlayer.uid))
-                &&
-                !(playerDictionary[otherPlayer.uid].includes(player.uid))
-                ) {
+                !(player.uid === otherPlayer.uid) &&
+                !(playerDic.includes(otherPlayer.uid)) && !(otherPlayerDic.includes(player.uid))) {
+                    if (playerDic.length > 0 && (playerDictionary[player.uid].length % 3 === 0)
+                        || otherPlayerDic.length > 0 && otherPlayerDic.length % 3 === 0) {
+                        weeksCounter++;
+                    }
                     const match = this.createMatch(player, otherPlayer, weeksCounter);
                     this.mathes.push(match);
                     playerDictionary[player.uid].push(otherPlayer.uid);
                     playerDictionary[otherPlayer.uid].push(player.uid);
                 }
             });
-            weeksCounter++;
         });
     }
 
     private createMatch(p1: User, p2: User, week: number): Match {
-        // const pMatch1: PlayerMath = ;
         const match: Match = {
             players: [{...p1, approve: false }, {...p2, approve: false  }],
             state: MatchState.set,
