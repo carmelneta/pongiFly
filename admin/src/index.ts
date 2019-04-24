@@ -1,6 +1,6 @@
 import * as fbAdmin from 'firebase-admin';
+import {Match, MatchState, User} from '../../models/models';
 import * as serviceAccount from '../kkk.json';
-import {Match, MatchState, User} from './models';
 
 class PongiAdmin {
 
@@ -65,6 +65,7 @@ class PongiAdmin {
     private createMatch(p1: User, p2: User, week: number): Match {
         const match: Match = {
             players: [{...p1, approve: false }, {...p2, approve: false  }],
+            playersIds: [p1.uid, p2.uid],
             state: MatchState.set,
             week,
         };

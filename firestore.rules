@@ -5,5 +5,11 @@ service cloud.firestore {
       allow update : if request.auth.uid == userId;
       allow create, delete: if false;
     }
+
+        
+    match /games/{gameId} {
+    	allow read: if true;
+    }
+    
   }
 }
