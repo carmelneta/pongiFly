@@ -1,0 +1,14 @@
+<mat-card>
+    <mat-card-title>Next matches</mat-card-title>
+    <mat-card-content>
+        <mat-list>
+            <mat-list-item *ngFor="let game of games" disable-ripple="false">
+                <div class="game-item">
+                    <div>{{ game.players[0].name }}</div>
+                    <div>{{ game.players[1].name }}</div>
+                    <button mat-button color="primary">Action</button>
+                </div>  <mat-divider></mat-divider>
+            </mat-list-item>
+        </mat-list>
+    </mat-card-content>
+</mat-card>

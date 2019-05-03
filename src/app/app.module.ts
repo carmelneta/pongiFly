@@ -17,6 +17,9 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatCardModule} from '@angular/material/card';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatListModule} from '@angular/material/list';
 
 //  Firebase
 import { AngularFireModule } from '@angular/fire';
@@ -32,6 +35,8 @@ import { FirstWordPipe } from './services/first-word.pipe';
 import { LoginSmsComponent } from './login/login-sms/login-sms.component';
 import { UserComponent } from './user/user.component';
 import { HomeComponent } from './home/home.component';
+import { UserGamesComponent } from './user/user-games/user-games.component';
+
 
 @NgModule({
   declarations: [
@@ -41,7 +46,8 @@ import { HomeComponent } from './home/home.component';
     FirstWordPipe,
     LoginSmsComponent,
     UserComponent,
-    HomeComponent
+    HomeComponent,
+    UserGamesComponent
   ],
   imports: [
     BrowserModule,
@@ -61,7 +67,10 @@ import { HomeComponent } from './home/home.component';
     MatGridListModule,
     MatFormFieldModule,
     MatInputModule,
-    MatCardModule
+    MatCardModule,
+    MatStepperModule,
+    MatDividerModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

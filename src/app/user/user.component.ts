@@ -15,9 +15,9 @@ export class UserComponent implements OnInit {
 
   userName: string;
   private itemDoc: AngularFirestoreDocument<User>;
-  item: Observable<User>;
+  userDoc: Observable<User>;
   constructor(private afs: AngularFirestore,
-              private afAuth: AngularFireAuth,
+              public afAuth: AngularFireAuth,
               private router: Router) {
     this.afAuth.user.subscribe(user => this.userDidChanged(user));
   }
@@ -35,7 +35,7 @@ export class UserComponent implements OnInit {
     }
 
     this.itemDoc = this.afs.doc<User>(`users/${user.uid}`);
-    this.item = this.itemDoc.valueChanges();
+    this.userDoc = this.itemDoc.valueChanges();
     this.itemDoc.get().toPromise().then(snapshot => {
       this.userName = snapshot.get('name');
     });
