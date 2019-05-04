@@ -1,7 +1,7 @@
 import * as fbAdmin from 'firebase-admin';
 import {Match, MatchState, User} from '../../models/models';
+// import * as serviceAccount from './kkk.json';
 import * as serviceAccount from '../kkk.json';
-
 class PongiAdmin {
 
     private mathes: Match[] = [];
@@ -10,9 +10,13 @@ class PongiAdmin {
 
     constructor() {
         console.log('Building');
-        fbAdmin.initializeApp({
-            credential: fbAdmin.credential.cert(serviceAccount)
-        });
+        const account: fbAdmin.ServiceAccount = {
+            clientEmail: serviceAccount.client_email,
+            privateKey: serviceAccount.private_key,
+            projectId: serviceAccount.project_id,
+
+        };
+        fbAdmin.initializeApp({credential: fbAdmin.credential.cert(account)});
         this.db = fbAdmin.firestore();
     }
 
@@ -33,6 +37,7 @@ class PongiAdmin {
         // Commit the batch
         await batch.commit();
     }
+
     private buildMathes() {
         const playerDictionary: {[uid: string]: string[]} = {};
 
@@ -66,6 +71,7 @@ class PongiAdmin {
         const match: Match = {
             players: [{...p1, approve: false }, {...p2, approve: false  }],
             playersIds: [p1.uid, p2.uid],
+            results: [null, null, null],
             state: MatchState.set,
             week,
         };

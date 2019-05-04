@@ -16,6 +16,7 @@ export enum MatchState {
 export interface Match {
     players: PlayerMath[];
     playersIds: string[];   //  Query helper :)
+    results: string[];
     state: MatchState;
     week: number;
 }

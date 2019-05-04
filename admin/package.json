@@ -6,7 +6,7 @@
   "scripts": {
     "build-ts": "tsc",
     "start": "npm run serve",
-    "serve": "node dist/index.js",
+    "serve": "node dist/admin/src/index.js",
     "watch-node": "nodemon dist/index.js",
     "watch-ts": "tsc -w"
   },

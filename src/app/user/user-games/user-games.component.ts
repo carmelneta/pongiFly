@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, CollectionReference } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import {Match, MatchState, User} from '../../../../models/models';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -14,7 +15,7 @@ export class UserGamesComponent implements OnInit {
 
   games: Match[];
 
-  constructor(private afs: AngularFirestore) {
+  constructor(private afs: AngularFirestore, private router: Router) {
 
    }
 
@@ -28,4 +29,18 @@ export class UserGamesComponent implements OnInit {
     });
   }
 
+  navToGame(game: Match) {
+    const gameId = game.playersIds.join('VS');
+    this.router.navigate(['/game', gameId]);
+  }
+
+  actionTitle(state: MatchState): string {
+    switch (state) {
+      case MatchState.approved:
+        return 'Close';
+      case MatchState.played:
+      case MatchState.set:
+        return 'Send';
+    }
+  }
 }

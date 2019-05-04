@@ -21,15 +21,12 @@ export class UserService {
   }
 
   getUser(): Promise<User> {
-    const userPromise = new Promise<User>( (resulve, reject) => {
+    const userPromise = new Promise<User>( (resolve, reject) => {
 
       this.afAuth.user.subscribe(userResults => {
         this.userDoc = this.afs.doc<User>(`users/${userResults.uid}`);
         this.user = this.userDoc.valueChanges();
-        this.user.subscribe(user => {
-          const finalUser: User = {name : user.name};
-          resulve(finalUser);
-        });
+        this.user.subscribe(user => resolve({name : user.name}));
       });
     });
     return userPromise;

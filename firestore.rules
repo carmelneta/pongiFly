@@ -9,6 +9,12 @@ service cloud.firestore {
         
     match /games/{gameId} {
     	allow read: if true;
+      allow update: if  request.resource.data.players == resource.data.players &&
+      									request.resource.data.playersIds == resource.data.playersIds &&
+                        request.resource.data.state == resource.data.state &&
+                        request.resource.data.week == resource.data.week &&
+                        request.auth.uid in resource.data.playersIds &&
+                        resource.data.state == 0
     }
     
   }

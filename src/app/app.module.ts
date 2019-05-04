@@ -20,6 +20,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatListModule} from '@angular/material/list';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 //  Firebase
 import { AngularFireModule } from '@angular/fire';
@@ -36,6 +37,7 @@ import { LoginSmsComponent } from './login/login-sms/login-sms.component';
 import { UserComponent } from './user/user.component';
 import { HomeComponent } from './home/home.component';
 import { UserGamesComponent } from './user/user-games/user-games.component';
+import { GameComponent } from './game/game.component';
 
 
 @NgModule({
@@ -47,7 +49,8 @@ import { UserGamesComponent } from './user/user-games/user-games.component';
     LoginSmsComponent,
     UserComponent,
     HomeComponent,
-    UserGamesComponent
+    UserGamesComponent,
+    GameComponent
   ],
   imports: [
     BrowserModule,
@@ -70,7 +73,8 @@ import { UserGamesComponent } from './user/user-games/user-games.component';
     MatCardModule,
     MatStepperModule,
     MatDividerModule,
-    MatListModule
+    MatListModule,
+    MatButtonToggleModule
   ],
   providers: [],
   bootstrap: [AppComponent]

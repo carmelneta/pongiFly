@@ -6,7 +6,9 @@
                 <div class="game-item">
                     <div>{{ game.players[0].name }}</div>
                     <div>{{ game.players[1].name }}</div>
-                    <button mat-button color="primary">Action</button>
+                    <button mat-button color="warn" (click)="navToGame(game)">
+                        {{actionTitle(game.state)}}
+                    </button> 
                 </div>  <mat-divider></mat-divider>
             </mat-list-item>
         </mat-list>
