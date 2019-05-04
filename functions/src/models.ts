@@ -19,5 +19,4 @@ export interface Match {
     results: string[];
     state: MatchState;
     week: number;
-    reportedBy: string;
 }

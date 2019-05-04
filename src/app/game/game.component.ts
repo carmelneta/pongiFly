@@ -4,6 +4,7 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firest
 import { Observable, from } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import {Match, MatchState, PlayerMath} from '../../../models/models';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-game',
@@ -20,7 +21,8 @@ export class GameComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private afs: AngularFirestore
+    private afs: AngularFirestore,
+    private userService: UserService
   ) { }
 
   ngOnInit() {
@@ -44,12 +46,17 @@ export class GameComponent implements OnInit {
     this.validResults = this.localResluts.reduce((sum, next) => sum && next != null , true);
   }
 
-  submit() {
+  async submit() {
     if (!this.validResults) {
       return;
     }
 
-    this.gameDoc.update({results: this.localResluts});
+    const user = await this.userService.getUser();
+
+    this.gameDoc.update({
+      results: this.localResluts,
+      reportedBy: user.uid
+    });
   }
 
 }
